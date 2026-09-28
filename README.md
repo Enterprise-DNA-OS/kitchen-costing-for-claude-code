@@ -6,7 +6,7 @@ Recipe costs, ingredient stock, purchasing and waste in a database you own. Buil
 | --- | --- | --- |
 | Free source. Follow the quick start. | Your recipes, supplier units, MarketMan mapping, reports, phone entry or different stack. | Installed, connected and operated through Omni by Enterprise DNA. One setup fee, then a retainer. |
 
-[Talk to Sam](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=marketman&utm_medium=readme) · [Instead of MarketMan](https://enterprisedna.co/omni/instead-of/marketman)
+[Talk to Sam](https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=marketman&utm_medium=readme) · [Instead of MarketMan](https://enterprisedna.co/omni/instead-of/marketman?utm_source=github&utm_medium=readme&utm_campaign=marketman)
 
 Works with Claude Code, Codex, OpenCode or Cursor. Start with AGENTS.md and CLAUDE.md.
 
