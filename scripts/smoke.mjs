@@ -91,7 +91,7 @@ try{
  await fail(['export',exported.directory],/must not exist/);
  for(const cmd of ['draft-order','draft-supplier']){const draft=await run([cmd,'Coastal Produce']);assert.match(fs.readFileSync(draft.file,'utf8'),/DRAFT/);}
  assert.ok(!page({title:'<script>',sections:[{title:'Rows',html:table([{name:'<script>alert(1)</script>'}])}]}).includes('<script>'));
- assert.match(format([{name:'Test'}]),/name/);
+ assert.match(format([{name:'Test'}]),/name/);assert.match(format([salmon],'menu-costing'),/portion cost/);assert.doesNotMatch(format([salmon],'menu-costing'),/contribution/);
  await fail(['nonsense'],/Unknown command/);await fail(['stock','junk'],/Expected 0/);await fail(['stock','--dry-run'],/for import/);
  const mode=db.mode;await db.close();db=null;
  for(const script of ['view.mjs','docs.mjs']){const p=spawnSync(process.execPath,[path.join(REPO_ROOT,'scripts',script)],{cwd:REPO_ROOT,env:process.env,encoding:'utf8'});assert.equal(p.status,0,p.stderr);checks++;}

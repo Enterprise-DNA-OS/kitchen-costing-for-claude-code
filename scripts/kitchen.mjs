@@ -146,9 +146,15 @@ async function importMarketman(db,folder){
  }return {inserted,skipped,source:mapping.source};
 }
 function csv(rows){if(!rows.length)return '';const keys=Object.keys(rows[0]),cell=v=>'"'+String(v===null?'':typeof v==='object'?JSON.stringify(v):v).replaceAll('"','""')+'"';return [keys,...rows.map(r=>keys.map(k=>r[k]))].map(r=>r.map(cell).join(',')).join('\r\n')+'\r\n';}
-export function format(value){
- if(Array.isArray(value)){if(!value.length)return '(none)';return table(value,Object.keys(value[0]).map(key=>({key,label:key.replaceAll('_',' '),format:v=>v instanceof Date?v.toISOString():v===null?'unknown':typeof v==='object'?JSON.stringify(v):v})));}
- if(value&&typeof value==='object')return Object.entries(value).map(([k,v])=>`${k}\n${Array.isArray(v)?format(v):typeof v==='object'?JSON.stringify(v,null,2):v}`).join('\n\n');return String(value);
+const briefColumns={
+ 'menu-costing':['site','currency','dish','cost_per_portion','food_cost_pct','target_pct'],
+ 'usage-gap':['site','item','unit','actual','theoretical','waste','unexplained'],
+ 'par-order':['site','item','unit','on_hand','packs_to_order','finding']
+};
+const labels={cost_per_portion:'portion cost',food_cost_pct:'food cost %',target_pct:'target %',packs_to_order:'packs',on_hand:'on hand'};
+export function format(value,command){
+ if(Array.isArray(value)){if(!value.length)return '(none)';return table(value,(briefColumns[command]||Object.keys(value[0])).map(key=>({key,label:labels[key]||key.replaceAll('_',' '),format:v=>v instanceof Date?v.toISOString():v===null?'unknown':typeof v==='object'?JSON.stringify(v):v})));}
+ if(value&&typeof value==='object')return Object.entries(value).map(([k,v])=>`${k}\n${Array.isArray(v)?format(v,k):typeof v==='object'?JSON.stringify(v,null,2):v}`).join('\n\n');return String(value);
 }
 async function core(db,args){
  const [cmd,...rest]=args;
@@ -179,6 +185,6 @@ export async function execute(db,args){
  try{const result=await core(db,args);await db.exec(dry?'ROLLBACK':'COMMIT');return dry?{...result,dry_run:true}:result;}catch(error){await db.exec('ROLLBACK');throw error;}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(path.resolve(process.argv[1])).href){
- let db;try{db=await getDb();const out=await execute(db,process.argv.slice(2));console.log(process.argv.includes('--json')?JSON.stringify(out,null,2):format(out));}
+ let db;try{db=await getDb();const out=await execute(db,process.argv.slice(2));console.log(process.argv.includes('--json')?JSON.stringify(out,null,2):format(out,process.argv[2]));}
  catch(error){if(process.argv.includes('--json'))console.error(JSON.stringify({error:error.message,...(error.candidates?{candidates:error.candidates}:{})}));else console.error(error.message);process.exitCode=1;}finally{if(db)await db.close();}
 }
