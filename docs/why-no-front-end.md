@@ -1,24 +1,11 @@
-# Why there is no front end
+# Why this kitchen desk has no front end
 
-MarketMan is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+The chef needs a weekly explanation of margins, stock and purchasing. Those answers can come from counted quantities, ingredient costs and recipe records. This build keeps them in one database and gives a coding agent the commands to read and maintain them.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+It fits an owner or kitchen manager who works from supplier exports and an agreed count sheet. The HTML outputs are read-only reports and printable documents. They are not an entry application.
 
-## What you gain
+A mobile counting screen gives staff guided entry at the shelf. Offline capture keeps working without reception. Barcode scanning reduces entry time. Live point-of-sale feeds reduce missing sales. Invoice scanning saves rekeying. Those capabilities are not included here. Without recorded sales and counts, stock estimates are incomplete.
 
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
+Use the existing capture process while testing the costing desk. Enterprise DNA can scope phone entry, integrations or a different stack for a custom version. Do not retire a working capture process until its replacement has been checked in a real stocktake and order cycle.
 
-## What you give up
-
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
-
-## Who this fits
-
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep MarketMan. If you need the answers more than the screens, this is cheaper, faster and yours.
-
-Installed and run for you: https://enterprisedna.co/omni/instead-of/marketman
+The free build is useful without those connections: import reviewed CSV files, log quantities, read margins and print the paperwork. There are no seat charges in the source licence. Running a shared database still needs access control, backups and an operator responsible for the records.

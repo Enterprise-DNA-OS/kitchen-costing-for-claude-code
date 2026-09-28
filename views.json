@@ -1,13 +1,50 @@
 [
   {
     "name": "week",
-    "title": "This week",
-    "subtitle": "Kitchen Costing for Claude Code: what needs attention, rendered by npm run view",
+    "title": "Kitchen weekly review",
+    "subtitle": "Fictional demo until replaced with your records. Amounts exclude tax.",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Attention",
+        "sql": "select site,kind,item,finding from v_attention order by site,kind"
+      },
+      {
+        "title": "Recipe margins",
+        "sql": "select site,currency,dish,cost_per_portion,sale_price,food_cost_pct,target_pct from v_recipe_costs order by site,dish"
+      }
+    ]
+  },
+  {
+    "name": "stock",
+    "title": "Stock and ordering",
+    "sections": [
+      {
+        "title": "Par orders",
+        "note": "Proposals use counted stock plus recorded movements and recipe consumption. Verify stale counts.",
+        "sql": "select site,item,unit,on_hand,par,packs_to_order,finding from v_par_order order by site,item"
+      },
+      {
+        "title": "Usage between counts",
+        "sql": "select site,item,unit,actual,theoretical,waste,unexplained,basis from v_usage order by site,item"
+      }
+    ]
+  },
+  {
+    "name": "suppliers",
+    "title": "Supplier desk",
+    "sections": [
+      {
+        "title": "Open orders",
+        "sql": "select site,name,item,due_on,ordered_units,received_units,outstanding_units from v_order_review where state<>'closed'"
+      },
+      {
+        "title": "Unsettled invoices",
+        "sql": "select site,currency,supplier,name,due_on,total,status from v_invoice_review"
+      },
+      {
+        "title": "Receiving record checks",
+        "note": "Selected Australian checks only. Findings require an operator review; they are not a food release decision.",
+        "sql": "select site,rule,item,batch,finding from v_compliance"
       }
     ]
   }

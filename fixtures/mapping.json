@@ -1,0 +1,32 @@
+{
+  "source": "marketman-demo-account",
+  "files": [
+    {
+      "file": "suppliers.csv",
+      "entity": "suppliers",
+      "key": "Vendor ID",
+      "columns": {
+        "Vendor Name": "name",
+        "Address": "address",
+        "Contact": "contact"
+      }
+    },
+    {
+      "file": "items.csv",
+      "entity": "items",
+      "key": "Item Code",
+      "columns": {
+        "Item Name": "name",
+        "Unit": "unit",
+        "Pack Size": "pack_size",
+        "Cost Per Unit": "unit_cost",
+        "Par": "par"
+      },
+      "defaults": {
+        "site_id": "Harbour Kitchen",
+        "supplier_id": "Example, Supplier",
+        "storage": "ambient"
+      }
+    }
+  ]
+}

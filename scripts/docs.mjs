@@ -34,7 +34,7 @@ try {
         sections.push({ title: s.title, note: s.note, html: table(rows, s.columns) });
       }
       const label = r[d.file || 'id'];
-      const file = writeOut(path.join('docs-out', d.name), slug(label), page({ title: d.title, subtitle: String(label), sections }));
+      const file = writeOut(path.join('docs-out', d.name), `${slug(label) || 'record'}-${r.id}`, page({ title: d.title, subtitle: String(label), sections }));
       console.log(`doc: ${path.relative(REPO_ROOT, file)}`);
       count++;
     }

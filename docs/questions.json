@@ -1,0 +1,42 @@
+[
+  {
+    "ask": "Which dishes are above our chosen food cost target?",
+    "command": "menu-costing"
+  },
+  {
+    "ask": "Which ingredients have usage left unexplained after recorded sales and waste?",
+    "command": "usage-gap"
+  },
+  {
+    "ask": "Which kitchen has an old stock count behind its order proposal?",
+    "command": "par-order"
+  },
+  {
+    "ask": "How many supplier packs cover the recorded shortage?",
+    "command": "par-order"
+  },
+  {
+    "ask": "Which accepted receipt changed an ingredient cost?",
+    "command": "price-watch"
+  },
+  {
+    "ask": "Which orders are overdue with stock still outstanding?",
+    "command": "orders"
+  },
+  {
+    "ask": "Which waste entries have a recorded reason and operator?",
+    "command": "waste-review"
+  },
+  {
+    "ask": "Which suppliers have held deliveries and missing address records?",
+    "command": "supplier-review + compliance"
+  },
+  {
+    "ask": "What portion of recorded sales went on the ingredients used?",
+    "command": "food-cost"
+  },
+  {
+    "ask": "What should each kitchen follow up this Monday?",
+    "command": "weekly-review"
+  }
+]

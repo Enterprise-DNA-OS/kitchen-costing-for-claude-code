@@ -1,11 +1,68 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
+    "name": "recipe-card",
+    "title": "Recipe costing card",
+    "for_each": "select id,name from recipes order by name",
     "file": "name",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Portion costing",
+        "sql": "select site,currency,dish,portions,cost_per_portion,sale_price,food_cost_pct from v_recipe_costs where id=$1"
+      },
+      {
+        "title": "Ingredients",
+        "sql": "select i.name,i.unit,l.net_qty,l.yield_pct,i.unit_cost,i.allergen_notes from recipe_lines l join items i on i.id=l.item_id where l.recipe_id=$1",
+        "note": "Allergen notes are entered by the operator and are not a verified allergen declaration."
+      }
+    ]
+  },
+  {
+    "name": "stocktake-sheet",
+    "title": "Stocktake worksheet",
+    "for_each": "select id,name from sites order by name",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Count in the listed base unit",
+        "sql": "select name,unit,'' as counted_quantity,'' as counted_at,'' as operator from items where site_id=$1 order by name"
+      }
+    ]
+  },
+  {
+    "name": "purchase-order",
+    "title": "DRAFT purchase order",
+    "for_each": "select id,name from orders order by name",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Order record",
+        "sql": "select o.name,s.name as site,s.currency,p.name as supplier,p.address,i.name as item,i.unit,o.packs,o.pack_size,o.unit_cost,o.due_on,o.state from orders o join items i on i.id=o.item_id join sites s on s.id=i.site_id join suppliers p on p.id=i.supplier_id where o.id=$1",
+        "note": "Review before sending. This tool does not place orders."
+      }
+    ]
+  },
+  {
+    "name": "waste-register",
+    "title": "Waste register",
+    "for_each": "select id,name from sites order by name",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Recorded waste",
+        "sql": "select i.name,i.unit,m.quantity,m.unit_cost,m.reason,m.operator,m.occurred_at from movements m join items i on i.id=m.item_id where i.site_id=$1 and m.kind='waste' order by m.occurred_at"
+      }
+    ]
+  },
+  {
+    "name": "receiving-register",
+    "title": "Receiving register",
+    "for_each": "select id,name from sites order by name",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Supplier and batch trail",
+        "sql": "select p.name as supplier,p.address,i.name as item,m.batch,m.quantity,i.unit,m.occurred_at,m.temperature_c,m.frozen_hard,m.disposition,m.operator,m.method_ref from movements m join items i on i.id=m.item_id join suppliers p on p.id=i.supplier_id where i.site_id=$1 and m.kind='receipt' order by m.occurred_at"
+      }
     ]
   }
 ]
